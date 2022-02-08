@@ -101,7 +101,7 @@ export default {
   },
   computed: {
     filteredElements() {
-    return this.items.filter(item =>  item.Name.toLowerCase().includes(this.searchtext) || item.Text.toLowerCase().includes(this.searchtext))
+    return this.items.filter(item =>  item.Name.toLowerCase().includes(this.searchtext.toLowerCase()) || item.Text.toLowerCase().includes(this.searchtext.toLowerCase()))
     }
 
   },
