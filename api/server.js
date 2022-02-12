@@ -163,10 +163,9 @@ app.post('/api/deleteItem', async function(req,res) {
    const item = req.body;
 
    //console.log ("request: " + JSON.stringify(req.headers))
-   // var authresult = await checkauth(req)
-   // if (  !authresult) {
-      if ( !( await !checkauth(req))) {
-
+    var authresult = await checkauth(req)
+    if (  !authresult) {
+  
       console.log("Authentication not ok - no action")
       res.json({Result:"error",text:"user not authenticated"})
 
@@ -250,6 +249,7 @@ async function checkauth(req){
          resolve(true);
       })
    });
+   console.log("checkauth returning: " + request)
    return request
 }
 
