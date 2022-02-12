@@ -5,6 +5,7 @@ const secretSalt ="This is a salt string for md5 hash"
 var express = require('express');
 var app = express();
 const path = require('path');
+const { JavascriptModulesPlugin } = require('webpack');
 bodyParser = require("body-parser");
 /* var db = require("./database")
  */const sqlite3 = require('sqlite3').verbose();
@@ -161,7 +162,7 @@ app.post('/api/deleteItem',async function(req,res) {
    console.log("got item to delete: "+ JSON.stringify(req.body))
    const item = req.body;
 
-   //console.log ("Authentication-check: " + await checkauth(req))
+   console.log ("request: " + JSON.stringify(req.headers))
     var authresult = await checkauth(req)
    if (  !authresult) {
       console.log("Authentication not ok - no action")
@@ -215,7 +216,7 @@ function updateUserToken(res, credentials){
 
       } else {
          console.log("Usertoken updated ...")
-         res.json({Result:"User authenticated",Usertocken:newToken})
+         res.json({Result:"User authenticated",Usertoken:newToken})
 
       }
    })

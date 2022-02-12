@@ -200,7 +200,7 @@ export default {
     },
     async DeleteItem(toDelete) {
       console.log("Deleting Item " + toDelete)
-      await axios.post(this.$parent.APIURL + '/deleteItem', toDelete,{headers:this.appheader})
+      await axios.post(this.$parent.APIURL + '/deleteItem', toDelete,{headers:this.headers})
       .then ((res) => {
         console.log('Result: ' + JSON.stringify(res.data))
         this.$toast.success(res.data.Result )
