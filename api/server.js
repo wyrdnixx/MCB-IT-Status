@@ -56,7 +56,7 @@ db = new sqlite3.Database(dbFile, (err) => {
      db.exec(`create table if not exists Users (
         Username TEXT primary key,
         Password TEXT not Null,
-        Tocken TEXT
+        Token TEXT
         )`, (err) => {
          if (err) {
             console.warn(err.message)
@@ -101,7 +101,7 @@ app.post('/api/login', function (req,res) {
          res.json(err.message)
       } 
       return row
-         ? updateUserTocken(res,credentials)   //res.json("authentication success")
+         ? updateUserToken(res,credentials)   //res.json("authentication success")
          : res.json({Result:"User not authenticated"});
          //res.json("login successfull")
       });
@@ -114,7 +114,6 @@ app.post('/api/addItem', function (req, res) {
    const item = req.body;
    
    //ToDo - Check authentication Key from header
-
    if( checkauth(req)) {
       var sql ='INSERT INTO items (Name, Text, Status) VALUES (?,?,?)'
 
@@ -158,25 +157,29 @@ app.post('/api/updateItem', function(req,res) {
 
 })
 
-app.post('/api/deleteItem',function(req,res) {
+app.post('/api/deleteItem',async function(req,res) {
    console.log("got item to delete: "+ JSON.stringify(req.body))
    const item = req.body;
 
-   if( checkauth(req)) {
-
-
-   var sql = 'delete from items where Name = ?'
-   db.run(sql,item.Name,(err) =>{
-      if (err) {
-         console.log(err.message)
-         res.json({Result:err.message})
-      } else {
-         res.json({Result:"item deleted ..."})
-      }
-   })
-   } else {
-   res.json({Result:"error - not authenticated. maybe login from other session?"})
-}
+   //console.log ("Authentication-check: " + await checkauth(req))
+    var authresult = await checkauth(req)
+   if (  !authresult) {
+      console.log("Authentication not ok - no action")
+   } else 
+   {
+      console.log("deleting item...")
+      var sql = 'delete from items where XXName = ?'
+      db.run(sql,item.Name,(err) =>{
+         if (err) {
+            console.log(err.message)
+            res.json({Result:err.message})
+         } else {
+            res.json({Result:"item deleted ..."})
+         }
+      })
+   
+   }
+   
 })
 
 
@@ -201,17 +204,17 @@ app.get('/', function (req, res) {
 
 })
 
-function updateUserTocken(res, credentials){
+function updateUserToken(res, credentials){
    console.log("updating usertoken")  
    var newToken = crypto.randomUUID()
-   sql = `update Users set Tocken = ? where Username = ?`
+   sql = `update Users set Token = ? where Username = ?`
    db.run(sql,newToken,credentials.Username,(err) => {
       if (err) {
          console.log(err.message)
          res.json({Result:"error",text:"'+err.message+'"})
 
       } else {
-         console.log("Usertocken updated ...")
+         console.log("Usertoken updated ...")
          res.json({Result:"User authenticated",Usertocken:newToken})
 
       }
@@ -223,24 +226,26 @@ function updateUserTocken(res, credentials){
 async function checkauth(req){
    
    const authkey = req.get('authkey');
-   console.log("authkey: " + authkey)
+   console.log("check auth authkey: " + authkey)
       const authusr = req.get('authusr');
-   console.log("authusr: " + authusr)
+   console.log("checkauth authusr: " + authusr)
    
-   var authstatus = false;
 
-   var sql = `select Username, Tocken from Users where Username = ? and Tocken = ?`
-   await db.get(sql,authusr,authkey,(err,row) => {
-      if(err){
-         console.log("error validating user: " + err.message)
-         res.json({Result:err.message})
-      } 
-      return row
-         ? this.authstatus = true | console.log("authentication status: auth-ok") 
-         : this.authstatus = false | console.log("authentication status: auth-not-ok")
-        
+   //"71e5feed-cc45-4d89-a6e5-74e48b8398af"
+   //var sql = `select Username, Tocken from Users where Username = 'admin' and Tocken = '71e5feed-cc45-4d89-a6e5-74e48b8398af'`
+   var sql = `select Username, Token from Users where Username = ? and Token = ?`
+   
+   var request = await new Promise((resolve, reject) => {
+      db.get(sql,authusr,authkey,function (err,row) {
+         if(err || !row){
+            console.log("user / token not found")
+            return resolve(false);
+         }
+         console.log("checkauth got res: " + JSON.stringify(row))
+         resolve(true);
       })
-      return this.authstatus
+   });
+   return request
 }
 
 var server = app.listen(3080, function () {

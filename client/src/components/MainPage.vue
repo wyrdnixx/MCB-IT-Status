@@ -89,7 +89,7 @@ export default {
         Username:"",
         Password:"",
       },
-      Usertocken:"",
+      Usertoken:"",
       toEdit:"",
       NewName:""
     }
@@ -127,8 +127,8 @@ export default {
 
            if (res.data.Result === "User authenticated"){
              this.loggedin = true;
-              //this.Usertocken = res.data.Usertocken;
-              this.headers.authkey = res.data.Usertocken
+              //this.Usertoken = res.data.Usertoken;
+              this.headers.authkey = res.data.Usertoken
               this.headers.authusr = this.credentials.Username
               this.$toast.success("Login Ok")
               this.$cookies.set('myauthcookie',this.headers,'1h')
