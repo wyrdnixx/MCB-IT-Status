@@ -158,22 +158,26 @@ app.post('/api/updateItem', function(req,res) {
 
 })
 
-app.post('/api/deleteItem',async function(req,res) {
+app.post('/api/deleteItem', async function(req,res) {
    console.log("got item to delete: "+ JSON.stringify(req.body))
    const item = req.body;
 
-   console.log ("request: " + JSON.stringify(req.headers))
-    var authresult = await checkauth(req)
-   if (  !authresult) {
+   //console.log ("request: " + JSON.stringify(req.headers))
+   // var authresult = await checkauth(req)
+   // if (  !authresult) {
+      if ( !( await !checkauth(req))) {
+
       console.log("Authentication not ok - no action")
+      res.json({Result:"error",text:"user not authenticated"})
+
    } else 
    {
       console.log("deleting item...")
-      var sql = 'delete from items where XXName = ?'
+      var sql = 'delete from items where Name = ?'
       db.run(sql,item.Name,(err) =>{
          if (err) {
             console.log(err.message)
-            res.json({Result:err.message})
+            res.json({Result:"error",text:"'"+err.message+"'"})
          } else {
             res.json({Result:"item deleted ..."})
          }
