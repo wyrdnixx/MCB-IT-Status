@@ -110,12 +110,18 @@ app.post('/api/login', function (req,res) {
    
 
 
-app.post('/api/addItem', function (req, res) {
+app.post('/api/addItem', async function (req, res) {
    console.log("got post request: " + JSON.stringify(req.body))
    const item = req.body;
    
-   //ToDo - Check authentication Key from header
-   if( checkauth(req)) {
+   var authresult = await checkauth(req)
+   if (  !authresult) {
+ 
+     console.log("Authentication not ok - no action")
+     res.json({Result:"error",text:"user not authenticated"})
+
+  } else 
+  {
       var sql ='INSERT INTO items (Name, Text, Status) VALUES (?,?,?)'
 
       db.run(sql, item.Name, item.Text, item.Status,(err) => {
@@ -127,20 +133,23 @@ app.post('/api/addItem', function (req, res) {
    
          }
       })
-   } else {
-      res.json({Result:"error - not authenticated. maybe login from other session?"})
-   }
-   
+   } 
    
 })
 
 
-app.post('/api/updateItem', function(req,res) {
+app.post('/api/updateItem', async function(req,res) {
    console.log("got update request: "+ JSON.stringify(req.body))
    const item = req.body;
    
-   if( checkauth(req)) {
+   var authresult = await checkauth(req)
+    if (  !authresult) {
+  
+      console.log("Authentication not ok - no action")
+      res.json({Result:"error",text:"user not authenticated"})
 
+   } else 
+   {
 
    var sql = 'update items set Name = ?, Text = ? ,Status =? where Name = ?'
    db.run(sql,item.Name,item.Text,item.Status,item.Name,(err) => {
@@ -152,9 +161,7 @@ app.post('/api/updateItem', function(req,res) {
 
       }
    })
-} else {
-   res.json({Result:"error - not authenticated. maybe login from other session?"})
-}
+} 
 
 })
 
