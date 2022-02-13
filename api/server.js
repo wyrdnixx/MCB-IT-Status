@@ -152,11 +152,12 @@ app.post('/api/updateItem', async function(req,res) {
    {
 
    var sql = 'update items set Name = ?, Text = ? ,Status =? where Name = ?'
-   db.run(sql,item.Name,item.Text,item.Status,item.Name,(err) => {
+   db.run(sql,item.Name,item.Text,item.Status,item.Oldname,(err) => {
       if (err) {
          console.log(err.message)
          res.json({Result:err.message})
       } else {
+         //console.log("updated: "+ sql)
          res.json({Result:"item updated ..."})
 
       }

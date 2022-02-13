@@ -89,15 +89,22 @@ export default {
         Username:"",
         Password:"",
       },
-      Usertoken:"",
       toEdit:"",
       NewName:""
     }
   },
   created(){
     this.GetItems()
-    var myauthcookie =  this.$cookies.get('authcoockie')
-    console.log('cookie: ' + myauthcookie)
+    var myauthcookie =  this.$cookies.get('myauthcookie')
+    console.log('cookie username: ' + myauthcookie.authusr)
+    if (!myauthcookie) {
+      console.log("created: No valid cookie found")
+    }else {
+      this.headers.authusr = myauthcookie.authusr
+      this.headers.authkey = myauthcookie.authkey
+      this.loggedin = true
+    }
+    
   },
   computed: {
     filteredElements() {
@@ -156,6 +163,7 @@ export default {
     SetUpdateItem(item) {
       this.toEdit = item.Name
       this.UpdateItem.Name  = item.Name
+      this.UpdateItem.Oldname = item.Name
       this.UpdateItem.Text  = item.Text
       this.UpdateItem.Status  = item.Status
     },
@@ -167,13 +175,14 @@ export default {
         console.log('Result: ' + JSON.stringify(res.data))
                this.$toast.success("aktualisiert")
 
-         if (res.data === "item updated ...") {
+         if (res.data.Result === "item updated ...") {
           this.toEdit=null
+          this.GetItems()
          } else {
                    this.$toast.error(res.data )
          }
       })
-      .then(this.GetItems())
+      //.then(this.GetItems())
       .catch((error) => {
         this.$toast.error(error)
       })
