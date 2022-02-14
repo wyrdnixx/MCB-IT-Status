@@ -1,6 +1,7 @@
 <template>
-  <div id="app">
+  <div id="app" >
    
+
     <MainPage msg="Welcome to MainPage"/>
   </div>
 </template>
@@ -17,7 +18,8 @@ name: 'App',
   },
   data() {
     return {
-      APIURL:""
+      APIURL:"",
+  
     }
   },
   created() {
@@ -39,12 +41,21 @@ name: 'App',
 </script>
 
 <style>
-#app {
+#app-orginal {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #1b4a79;
+  background-color: rgb(23, 120, 165);
   margin-top: 60px;
+}
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+
+  text-align: center;
+  background-color: rgb(179, 242, 250);
+  
+  min-height: calc(100vh - 10px);
 }
 </style>

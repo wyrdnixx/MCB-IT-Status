@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">
+  <div  >
 
     <div align="right"> 
       <button class="btn btn-info" v-on:click="authentication()" > {{loggedin ? 'Logout' : 'Login'}} </button>
@@ -11,14 +11,18 @@
       <input v-model="credentials.Password" placeholder="Password" type="password">
       <button v-on:click="login()">Login</button>
     </div>
-    Key: {{headers.authkey}}
-    <div id="items">
-      <button class="btn btn-warning" v-on:click="GetItems()">aktualisieren</button>
-      <br>
-      <input type="text" placeholder="suche" v-model="searchtext" /> <button v-on:click="searchtext=''">x</button>
+    <div v-if="loggedin"> 
+      Angemeldet: {{headers.authusr}}
+    </div>
+    <p>
+    <div id="items" >
+      <!-- <button class="btn btn-warning" v-on:click="GetItems()">aktualisieren</button> -->
+      <button class="uk-button uk-button-primary" v-on:click="GetItems()">aktualisieren</button>
+      <p></p>
+      <input type="text" placeholder="suche" v-model="searchtext" /> <button v-on:click="searchtext=''" class="btn btn-outline-danger btn-sm">x</button>
       <br>
     
-      <table class="table table-dark">
+      <table class="table table-sm table-dark">
       <thead>
           <th>Funktion</th>
           <th>Beschreibung</th>
@@ -33,13 +37,13 @@
             <td> <input v-model="NewItem.Text" placeholder="Item-Text"/></td>
            <!-- <td> <input v-model="NewItem.Status" placeholder="Item-Status"/></td>-->
            <td> <select v-model="NewItem.Status"><option>In-Betrieb</option><option>Außer-Funktion</option> </select></td>
-            <td><button v-on:click="AddItem()">Add</button></td>
+            <td><button v-on:click="AddItem()" class="btn btn-outline-success btn-sm">Add</button></td>
           </tr>
           <tr v-for="item in filteredElements" :key="item.Name" v-bind:class="item.Status"  >
           <td v-if="toEdit===item.Name"> <input v-model="UpdateItem.Name"  /> </td> <td v-else> {{item.Name}}</td>
           <td v-if="toEdit===item.Name"> <input v-model="UpdateItem.Text"  /> </td> <td v-else> {{item.Text}}</td>
           <td v-if="toEdit===item.Name"> <select v-model="UpdateItem.Status"><option>In-Betrieb</option><option>Außer-Funktion</option> </select></td> <td v-else> {{item.Status}}</td>
-          <td v-if="loggedin"> <button v-on:click="SetUpdateItem(item)" v-if="toEdit!=item.Name">edit</button> <button v-on:click="DeleteItem(item)" v-if="toEdit!=item.Name">del</button> <button v-else v-on:click="DoUpdateItem()">save</button></td>
+          <td v-if="loggedin"> <button v-on:click="SetUpdateItem(item)" v-if="toEdit!=item.Name" class="btn btn-outline-primary btn-sm">edit</button> <button v-on:click="DeleteItem(item)" v-if="toEdit!=item.Name" class="btn btn-outline-danger btn-sm">x</button> <button v-else v-on:click="DoUpdateItem()">save</button></td>
         </tr>
       </tbody>
  
@@ -90,7 +94,8 @@ export default {
         Password:"",
       },
       toEdit:"",
-      NewName:""
+      NewName:"", 
+
     }
   },
   created(){
@@ -199,7 +204,7 @@ export default {
            this.NewItem.Text = null
            this.NewItem.Status = null
            this.$toast.success(res.data.Result )
-
+          this.GetItems()
 
          } else {
                    this.$toast.error(res.data.Result )
@@ -229,12 +234,15 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 tr.Außer-Funktion td{
-  background-color: rgb(129, 60, 3);
+  background-color: rgb(224, 158, 158);
+  color: black;
 }
 tr.In-Betrieb{
-    background-color: rgb(5, 156, 5);
+    background-color: rgb(144, 199, 147);
+    color: black;
 
 }
+
 h3 {
   margin: 40px 0 0;
 }
@@ -246,7 +254,7 @@ li {
   display: inline-block;
   margin: 0 10px;
 }
-a {
-  color: #42b983;
-}
+
+
+
 </style>

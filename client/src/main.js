@@ -3,6 +3,10 @@ import App from './App.vue'
 import { BootstrapVue } from 'bootstrap-vue'
 import VueCookies from 'vue-cookies'
 
+//import UIkit from 'uikit';
+//Vue.use(UIkit);
+
+
 Vue.use(VueCookies);
 Vue.use(BootstrapVue)
 Vue.config.productionTip = false
