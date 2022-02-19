@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
 
 
-app.use(express.static(path.join(__dirname, '../webapp/dist')));
+app.use(express.static(path.join(__dirname, '../client/dist')));
 
 const items = [];
 //const md5hasher = crypto.createHmac("md5",secretSalt)
