@@ -2,7 +2,7 @@
   <div id="app" >
    
 
-    <MainPage msg="Welcome to MainPage"/>
+    <MainPage msg="Status MCB-IT Systeme"/>
   </div>
 </template>
 
@@ -51,10 +51,10 @@ name: 'App',
   margin-top: 60px;
 }
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family:  Helvetica, Arial, sans-serif;
 
   text-align: center;
-  background-color: rgb(179, 242, 250);
+  background-color: whitesmoke;
   
   min-height: calc(100vh - 10px);
 }

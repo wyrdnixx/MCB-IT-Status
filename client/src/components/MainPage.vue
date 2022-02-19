@@ -7,9 +7,9 @@
     <h1>{{ msg }}</h1>
     <div id="loginForm" v-if="showLogin && !loggedin">
       <h3>Login</h3>
-      <input v-model="credentials.Username" placeholder="Name">
-      <input v-model="credentials.Password" placeholder="Password" type="password">
-      <button v-on:click="login()">Login</button>
+      <input id="inputUsername" v-model="credentials.Username" placeholder="Name">
+      <input id="inputPassword" v-model="credentials.Password" placeholder="Password" type="password"  v-on:keyup.enter="login()">
+      <button id="btnLogin" v-on:click="login()">Login</button>
     </div>
     <div v-if="loggedin"> 
       Angemeldet: {{headers.authusr}}
@@ -22,7 +22,7 @@
       <input type="text" placeholder="suche" v-model="searchtext" /> <button v-on:click="searchtext=''" class="btn btn-outline-danger btn-sm">x</button>
       <br>
     
-      <table class="table table-sm table-dark">
+      <table class="table table-sm ">
       <thead>
           <th>Funktion</th>
           <th>Beschreibung</th>
@@ -33,7 +33,7 @@
         <!--  v-if="toEdit!= item.Name" --->
         <!-- <tr v-for="item in this.items" :key="item.name" v-bind:class="item.state"  > -->
           <tr v-if="loggedin">
-            <td> <input v-model="NewItem.Name" placeholder="Item-Name" /></td>
+            <td> <input v-model="NewItem.Name" placeholder="Item-Name" /> </td>
             <td> <input v-model="NewItem.Text" placeholder="Item-Text"/></td>
            <!-- <td> <input v-model="NewItem.Status" placeholder="Item-Status"/></td>-->
            <td> <select v-model="NewItem.Status"><option>In-Betrieb</option><option>Außer-Funktion</option> </select></td>
@@ -99,7 +99,7 @@ export default {
     }
   },
   created(){
-    this.GetItems()
+    this.GetItems();
     var myauthcookie =  this.$cookies.get('myauthcookie')
     console.log('cookie username: ' + myauthcookie.authusr)
     if (!myauthcookie) {
@@ -110,14 +110,17 @@ export default {
       this.loggedin = true
     }
     
+
+
   },
   computed: {
     filteredElements() {
     return this.items.filter(item =>  item.Name.toLowerCase().includes(this.searchtext.toLowerCase()) || item.Text.toLowerCase().includes(this.searchtext.toLowerCase()))
-    }
+    },
 
   },
   methods: {
+
        authentication() {
          if (this.loggedin) {
            this.headers.authkey=""
@@ -195,22 +198,34 @@ export default {
     async AddItem() {
 
       console.log("Adding Item " + JSON.stringify(this.NewItem))
-      await axios.post(this.$parent.APIURL + '/addItem', this.NewItem,{headers:this.headers})
-      .then ((res) => {
-        console.log('Result: ' + JSON.stringify(res.data))
-        
-         if (res.data.Result === "item inserted ...") {
-           this.NewItem.Name = null
-           this.NewItem.Text = null
-           this.NewItem.Status = null
-           this.$toast.success(res.data.Result )
-          this.GetItems()
 
+      if(this.NewItem.Name === "" || this.NewItem.Text === "" || this.NewItem.Status === "") {
+        this.$toast.warning("Bitte alle Felder ausfüllen.");
+      } 
+      else {
+        // this.items.forEach(element => {
+        //   if(element.Name === this.NewItem.Name) {
+        //             this.$toast.warning("Name bereits vorhanden.");
+        //   }
+        // });
+
+        await axios.post(this.$parent.APIURL + '/addItem', this.NewItem,{headers:this.headers})
+          .then ((res) => {
+            console.log('Result: ' + JSON.stringify(res.data))
+        
+            if (res.data.Result === "item inserted ...") {
+              this.NewItem.Name = null
+              this.NewItem.Text = null
+              this.NewItem.Status = null
+              this.$toast.success(res.data.Result )
+              this.GetItems()
          } else {
-                   this.$toast.error(res.data.Result )
+          this.$toast.error(res.data.Result )
          }
       })
       .then(this.GetItems())
+      }
+   
     },
     async DeleteItem(toDelete) {
       console.log("Deleting Item " + toDelete)
@@ -233,6 +248,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+table {
+  background-color: rgb(86, 189, 248);
+}
 tr.Außer-Funktion td{
   background-color: rgb(224, 158, 158);
   color: black;
