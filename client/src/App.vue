@@ -1,20 +1,21 @@
 <template>
   <div id="app" >
    
-
+    <MCBNews/>
     <MainPage msg="Status MCB-IT Systeme"/>
   </div>
 </template>
 
 <script>
 import MainPage from './components/MainPage.vue'
-
+import MCBNews from './components/MCBNews.vue'
 
 export default {
 
 name: 'App',
   components: {
-    MainPage
+    MainPage,
+    MCBNews
   },
   data() {
     return {
