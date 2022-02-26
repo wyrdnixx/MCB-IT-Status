@@ -48,15 +48,14 @@ name: 'App',
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #1b4a79;
-  background-color: rgb(23, 120, 165);
+  color: #3b83ca;
+  background-color: rgb(20, 82, 110);
   margin-top: 60px;
 }
 #app {
   font-family:  Helvetica, Arial, sans-serif;
-
   text-align: center;
-  background-color: whitesmoke;
+  background-color: rgb(0, 0, 0);
   
   min-height: calc(100vh - 10px);
 }

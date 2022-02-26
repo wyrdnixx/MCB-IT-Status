@@ -4,7 +4,7 @@
 
       <div id="files" class="FileView rounded-bottom rounded-top rounded-left rounded-right">
         <h3>
-        <a v-for="f in this.files" :key="f.name" v-bind:href="basepath  + f.url"> {{ f.name }} <br></a>
+        <a v-for="f in this.files" :key="f.name" v-bind:href="basepath  + f.url" class="FileView"> {{ f.name }} <br></a>
         </h3>
       </div>
     </div>
@@ -53,7 +53,8 @@ export default {
 <style scoped>
 
 .FileView {
-  background-color:rgb(204, 204, 204);
+  background-color:rgb(46, 46, 46);
+  color: rgb(113, 133, 177);
   width: 60%;
   text-align: center;
   margin: 0 auto;

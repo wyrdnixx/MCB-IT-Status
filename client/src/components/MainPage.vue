@@ -250,14 +250,14 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 table {
-  background-color: rgb(86, 189, 248);
+  background-color: rgb(52, 147, 202);
 }
 tr.Außer-Funktion td{
-  background-color: rgb(224, 158, 158);
+  background-color: rgb(161, 116, 116);
   color: black;
 }
 tr.In-Betrieb{
-    background-color: rgb(144, 199, 147);
+    background-color: rgb(109, 158, 112);
     color: black;
 
 }
