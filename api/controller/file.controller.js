@@ -17,12 +17,14 @@ const getListFiles = (req, res) => {
     files.forEach((file) => {
       fileInfos.push({
         name: file,
-        url: baseUrl + file,
+        url: baseUrl + '../../files/' + file,
       });
     });
     res.status(200).send(fileInfos);
   });
 };
+
+//inactive
 const download = (req, res) => {
   const fileName = req.params.name;
   const directoryPath = __dirname + "/../resources/files/";

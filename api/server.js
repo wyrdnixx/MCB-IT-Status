@@ -20,7 +20,6 @@ app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
 
 
-app.use(express.static(path.join(__dirname, '../client/dist')));
 
 const items = [];
 //const md5hasher = crypto.createHmac("md5",secretSalt)
@@ -213,14 +212,6 @@ app.post('/api/deleteItem', async function(req,res) {
    //res.json(db.GetItems())
 });
 
-app.get("/api/files",  controller.getListFiles);
-app.get("/api/files/:name", controller.download);
-
-app.get('/', function (req, res) {
-   console.log("Main Site requested: " + path.join(__dirname, '../client/dist/index.html'))
-   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
-
-})
 
 function updateUserToken(res, credentials){
    console.log("updating usertoken")  
@@ -266,6 +257,21 @@ async function checkauth(req){
    console.log("checkauth returning: " + request)
    return request
 }
+
+
+app.get("/api/files",  controller.getListFiles);
+//app.get("/api/files/:name", controller.download);
+
+
+app.use('/files', express.static(path.join(__dirname, '../api/resources/files')));
+
+app.get('/', function (req, res) {
+   console.log("Main Site requested: " + path.join(__dirname, '../client/dist/index.html'))
+   res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+
+})
+
+app.use(express.static(path.join(__dirname, '../client/dist')));
 
 var server = app.listen(3080, function () {
    var host = server.address().address
