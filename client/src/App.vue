@@ -24,6 +24,7 @@ name: 'App',
     }
   },
   created() {
+    console.log("created App...")
      //this.UserAuthenticated = false    
     this.VUE_APP_NODE_ENV = process.env.VUE_APP_NODE_ENV
     console.log(" .environment : " + this.VUE_APP_NODE_ENV); // OUTPUT: development

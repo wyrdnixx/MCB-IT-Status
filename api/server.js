@@ -4,6 +4,10 @@ const secretSalt ="This is a salt string for md5 hash"
 
 var express = require('express');
 var app = express();
+
+const controller = require("./controller/file.controller.js");
+
+
 const path = require('path');
 const { JavascriptModulesPlugin } = require('webpack');
 bodyParser = require("body-parser");
@@ -205,10 +209,12 @@ app.post('/api/deleteItem', async function(req,res) {
         }
         res.json(rows)
    });
-   //res.json(items)
+   //res.json(items) 
    //res.json(db.GetItems())
 });
 
+app.get("/api/files",  controller.getListFiles);
+app.get("/api/files/:name", controller.download);
 
 app.get('/', function (req, res) {
    console.log("Main Site requested: " + path.join(__dirname, '../client/dist/index.html'))

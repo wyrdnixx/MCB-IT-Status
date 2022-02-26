@@ -1,27 +1,61 @@
 <template >
     <div >
-        <h1>MCB-News</h1>   
+              <h1>MCB-News</h1>   
+
+      <div id="files" class="FileView rounded-bottom rounded-top rounded-left rounded-right">
+        <h3>
+        <a v-for="f in this.files" :key="f.name" v-bind:href="basepath  + f.url"> {{ f.name }} <br></a>
+        </h3>
+      </div>
     </div>
 </template>
 
 
 <script>
-//import axios from 'axios';
+import axios from 'axios';
 
 export default {
-  
-  props: {
-   
-  },
+    name: 'MCBNews',
+ 
   data() {
     return{
+        files:[{
+            name:"",
+            url:""
+        }],
+        basepath:""
     }
   },
 
-  created: {
-
+  created() {
+    console.log("created MCBNews...")      
+    this.basepath =   this.$parent.APIURL 
+    this.GetFiles();
   },
   methods: {
-
+    async GetFiles() {
+      console.log("GetFiles: " + this.$parent.APIURL + '/files')
+      this.toEdit =""
+      await axios.get(this.$parent.APIURL + '/files') 
+      .then ((res) => {
+        //console.log('Result: ' + JSON.stringify(res.data))
+        //this.$toast.success("aktualisiert")
+        this.files = res.data;
+      })
+      .catch((error) => {
+        console.log("error: " + error)
+        this.$toast.error(error)
+      }) 
+    },
   }
 }
+</script>
+<style scoped>
+
+.FileView {
+  background-color:rgb(204, 204, 204);
+  width: 60%;
+  text-align: center;
+  margin: 0 auto;
+}
+</style>

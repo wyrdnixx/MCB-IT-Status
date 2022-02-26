@@ -99,9 +99,10 @@ export default {
     }
   },
   created(){
+    console.log("created MainPage...")
     this.GetItems();
     var myauthcookie =  this.$cookies.get('myauthcookie')
-    console.log('cookie username: ' + myauthcookie.authusr)
+    //console.log('cookie username: ' + myauthcookie.authusr)
     if (!myauthcookie) {
       console.log("created: No valid cookie found")
     }else {
@@ -158,7 +159,7 @@ export default {
       this.toEdit =""
       await axios.get(this.$parent.APIURL + '/getItems') 
       .then ((res) => {
-        console.log('Result: ' + JSON.stringify(res.data))
+        //console.log('Result: ' + JSON.stringify(res.data))
         //this.$toast.success("aktualisiert")
         this.items = res.data;
       })
