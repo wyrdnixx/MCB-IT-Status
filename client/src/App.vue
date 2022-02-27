@@ -1,45 +1,44 @@
 <template>
-  <div id="app" >
-   
-    <MCBNews/>
-    <MainPage msg="Status MCB-IT Systeme"/>
+  <div id="app">
+    <MCBNews />
+    <MainPage msg="Status MCB-IT Systeme" />
   </div>
 </template>
 
 <script>
-import MainPage from './components/MainPage.vue'
-import MCBNews from './components/MCBNews.vue'
+import MainPage from "./components/MainPage.vue";
+import MCBNews from "./components/MCBNews.vue";
 
 export default {
-
-name: 'App',
+  name: "App",
   components: {
     MainPage,
-    MCBNews
+    MCBNews,
   },
   data() {
     return {
-      APIURL:"",
-  
-    }
+      APIURL: "",
+    };
   },
   created() {
-    console.log("created App...")
-     //this.UserAuthenticated = false    
-    this.VUE_APP_NODE_ENV = process.env.VUE_APP_NODE_ENV
+    console.log("created App...");
+    //this.UserAuthenticated = false
+    this.VUE_APP_NODE_ENV = process.env.VUE_APP_NODE_ENV;
     console.log(" .environment : " + this.VUE_APP_NODE_ENV); // OUTPUT: development
-    if (this.VUE_APP_NODE_ENV != "production") {      
-      console.log("using developement environment")
-      this.APIURL= window.location.protocol + "//"+ window.location.hostname +":3080/api"
-
-      
-    }else {
-      console.log("using production environment")
+    if (this.VUE_APP_NODE_ENV != "production") {
+      console.log("using developement environment");
+      this.APIURL =
+        window.location.protocol +
+        "//" +
+        window.location.hostname +
+        ":3080/api";
+    } else {
+      console.log("using production environment");
       //this.APIURL = window.location.protocol + "//"+ window.location.href +":8081/api"
-      this.APIURL = window.location.href +"/api"
+      this.APIURL = window.location.href + "/api";
     }
-  }
-}
+  },
+};
 </script>
 
 <style>
@@ -53,10 +52,14 @@ name: 'App',
   margin-top: 60px;
 }
 #app {
-  font-family:  Helvetica, Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   text-align: center;
-  background-color: rgb(0, 0, 0);
-  
+  background-color: rgb(29, 29, 29);
+
   min-height: calc(100vh - 10px);
+}
+h1 {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  color: rgb(63, 153, 212);
 }
 </style>

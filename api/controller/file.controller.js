@@ -1,24 +1,28 @@
 const fs = require("fs");
+const path = require("path");
 const baseUrl = "/files/";
 const getListFiles = (req, res) => {
   //const directoryPath = __basedir + "/resources/files/";
   const directoryPath = __dirname + "/../resources/files/";
 
-  
+
 
   fs.readdir(directoryPath, function (err, files) {
     if (err) {
-        console.log("err scanning files in : " , directoryPath)
+      console.log("err scanning files in : ", directoryPath)
       res.status(500).send({
         message: "Unable to scan files!",
       });
     }
     let fileInfos = [];
     files.forEach((file) => {
-      fileInfos.push({
-        name: file,
-        url: baseUrl + '../../files/' + file,
-      });
+      if (path.extname(file) == ".pdf") {
+        fileInfos.push({
+          name: file,
+          url: baseUrl + '../../files/' + file,
+        });
+      }
+
     });
     res.status(200).send(fileInfos);
   });
