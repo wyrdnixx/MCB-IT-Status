@@ -1,6 +1,17 @@
 <template >
   <div>
     <h1>MCB-News</h1>
+    <input
+      type="file"
+      id="file"
+      ref="file"
+      accept=".pdf"
+      class="outerDiv"
+      v-on:change="handleFileUpload()"
+    />
+    <button v-if="IsLoggedIn" class="btn btn-warning" v-on:click="submitFile()">
+      Hochladen
+    </button>
     <div id="outerDiv" class="outerDiv">
       <div class="rightDiv">
         <!--
@@ -67,7 +78,11 @@ export default {
     this.basepath = this.$parent.APIURL;
     this.GetFiles();
   },
-  computed: {},
+  computed: {
+    IsLoggedIn() {
+      return this.$parent.loggedin;
+    },
+  },
   methods: {
     async GetFiles() {
       console.log("GetFiles: " + this.$parent.APIURL + "/files");
@@ -85,6 +100,40 @@ export default {
           console.log("error: " + error);
           this.$toast.error(error);
         });
+    },
+    submitFile() {
+      /*
+                Initialize the form data
+            */
+      let formData = new FormData();
+
+      /*
+                Add the form data we need to submit
+            */
+      formData.append("file", this.file);
+
+      /*
+          Make the request to the POST /single-file URL
+        */
+      axios
+        .post("/single-file", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then(function () {
+          console.log("SUCCESS!!");
+        })
+        .catch(function () {
+          console.log("FAILURE!!");
+        });
+    },
+
+    /*
+        Handles a change on the file upload
+      */
+    handleFileUpload() {
+      this.file = this.$refs.file.files[0];
     },
   },
 };
