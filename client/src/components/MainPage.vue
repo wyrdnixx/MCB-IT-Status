@@ -1,12 +1,10 @@
 <template>
   <div>
-    <div align="right">
-      <button class="btn btn-info" v-on:click="authentication()">
-        {{ loggedin ? "Logout" : "Login" }}
-      </button>
-    </div>
     <h1>{{ msg }}</h1>
-    <div id="loginForm" v-if="showLogin && !loggedin">
+    <button class="btn btn-info" v-on:click="authentication()">
+      {{ IsLoggedIn ? "Logout" : "Login" }}
+    </button>
+    <div id="loginForm" v-if="showLogin && !IsLoggedIn">
       <h3>Login</h3>
       <input
         id="inputUsername"
@@ -22,9 +20,9 @@
       />
       <button id="btnLogin" v-on:click="login()">Login</button>
     </div>
-    <div v-if="loggedin">Angemeldet: {{ headers.authusr }}</div>
+    <div v-if="IsLoggedIn">Angemeldet: {{ headers.authusr }}</div>
     <p></p>
-    <div id="items">
+    <div id="items" class="items">
       <!-- <button class="btn btn-warning" v-on:click="GetItems()">aktualisieren</button> -->
       <button class="uk-button uk-button-primary" v-on:click="GetItems()">
         aktualisieren
@@ -39,17 +37,17 @@
       </button>
       <br />
 
-      <table class="table table-sm">
+      <table class="table table-sm table-dark">
         <thead>
           <th>Funktion</th>
           <th>Beschreibung</th>
           <th>Status</th>
-          <th v-if="loggedin">Edit</th>
+          <th v-if="IsLoggedIn">Edit</th>
         </thead>
         <tbody>
           <!--  v-if="toEdit!= item.Name" --->
           <!-- <tr v-for="item in this.items" :key="item.name" v-bind:class="item.state"  > -->
-          <tr v-if="loggedin">
+          <tr v-if="IsLoggedIn">
             <td><input v-model="NewItem.Name" placeholder="Item-Name" /></td>
             <td><input v-model="NewItem.Text" placeholder="Item-Text" /></td>
             <!-- <td> <input v-model="NewItem.Status" placeholder="Item-Status"/></td>-->
@@ -88,7 +86,7 @@
               </select>
             </td>
             <td v-else>{{ item.Status }}</td>
-            <td v-if="loggedin">
+            <td v-if="IsLoggedIn">
               <button
                 v-on:click="SetUpdateItem(item)"
                 v-if="toEdit != item.Name"
@@ -145,7 +143,6 @@ export default {
         Status: "",
       },
       searchtext: "",
-      loggedin: "",
       showLogin: false,
       credentials: {
         Username: "",
@@ -165,7 +162,7 @@ export default {
     } else {
       this.headers.authusr = myauthcookie.authusr;
       this.headers.authkey = myauthcookie.authkey;
-      this.loggedin = true;
+      this.$parent.loggedin = true;
     }
   },
   computed: {
@@ -176,18 +173,21 @@ export default {
           item.Text.toLowerCase().includes(this.searchtext.toLowerCase())
       );
     },
+    IsLoggedIn() {
+      return this.$parent.loggedin;
+    },
   },
   methods: {
     authentication() {
-      if (this.loggedin) {
+      if (this.$parent.loggedin) {
         this.headers.authkey = "";
-        this.loggedin = false;
+        this.$parent.loggedin = false;
         this.toEdit = "";
         this.$cookies.set("myauthcookie", this.headers, "-0");
       } else {
         this.showLogin = true;
         //Test--sdfdsf
-        //this.loggedin=true
+        //this.$parent.loggedin=true
       }
     },
     async login() {
@@ -199,7 +199,8 @@ export default {
           console.log("result: " + status.Result);
 
           if (res.data.Result === "User authenticated") {
-            this.loggedin = true;
+            this.$parent.loggedin = true;
+
             //this.Usertoken = res.data.Usertoken;
             this.headers.authkey = res.data.Usertoken;
             this.headers.authusr = this.credentials.Username;
@@ -314,6 +315,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.items {
+  background-color: rgb(31, 31, 31);
+}
 table {
   background-color: rgb(52, 147, 202);
 }
