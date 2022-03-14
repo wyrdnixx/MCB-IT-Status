@@ -1,19 +1,9 @@
 <template >
   <div>
     <h1>MCB-News</h1>
-    <input
-      type="file"
-      id="file"
-      ref="file"
-      accept=".pdf"
-      class="outerDiv"
-      v-on:change="handleFileUpload()"
-    />
-    <button v-if="IsLoggedIn" class="btn btn-warning" v-on:click="submitFile()">
-      Hochladen
-    </button>
-    <div id="outerDiv" class="outerDiv">
-      <div class="rightDiv">
+
+    <div>
+      <div id="pdfview" class="pdfview">
         <!--
       <iframe src="http://localhost:3080/files/test%20Kopie%204.pdf" height='100%' width='100%' name='test'/>      
       -->
@@ -24,13 +14,25 @@
           name="test"
         />
       </div>
+      <div id="upload">
+        <input
+          type="file"
+          id="file"
+          ref="file"
+          accept=".pdf"
+          v-on:change="handleFileUpload()"
+        />
+        <button
+          v-if="IsLoggedIn"
+          class="btn btn-warning"
+          v-on:click="submitFile()"
+        >
+          Hochladen
+        </button>
+      </div>
       <div
         id="files"
-        class="
-          leftDiv
-          FileView
-          rounded-bottom rounded-top rounded-left rounded-right
-        "
+        class="FileView rounded-bottom rounded-top rounded-left rounded-right"
       >
         <a
           v-for="f in this.files"
@@ -142,29 +144,19 @@ export default {
 .FileView {
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   color: rgb(113, 133, 177);
-  width: 60%;
+
   text-align: center;
-  margin: 0 auto;
+  /* margin: 0 auto;
   overflow-y: auto;
   position: relative;
   max-height: 40%;
+    width: 60%;
+  */
 }
 
-.outerDiv {
-  color: rgb(140, 194, 255);
-  height: 40%;
+.pdfview {
+  height: 600px;
   width: 100%;
-  margin: 0px auto;
-  padding: 0px;
-}
-.leftDiv {
-  height: 400px;
-  width: 25%;
-  float: left;
-}
-.rightDiv {
-  height: 400px;
-  width: 75%;
-  float: right;
+  padding: 30px;
 }
 </style>

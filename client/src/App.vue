@@ -55,9 +55,9 @@ export default {
 #app {
   font-family: Helvetica, Arial, sans-serif;
   text-align: center;
-  background-color: rgb(29, 29, 29);
-
   min-height: calc(100vh - 10px);
+  background-image: url("assets/bg-mcb.jpeg");
+  background-attachment: fixed;
 }
 h1 {
   font-family: Avenir, Helvetica, Arial, sans-serif;
