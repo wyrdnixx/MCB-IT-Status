@@ -1,16 +1,15 @@
 <template >
   <div>
-    <h1>MCB-News</h1>
-
     <div>
       <div id="pdfview" class="pdfview">
+        <h2>MCB-News</h2>
         <!--
       <iframe src="http://localhost:3080/files/test%20Kopie%204.pdf" height='100%' width='100%' name='test'/>      
       -->
         <iframe
           :src="basepath + '/../files/' + curFile"
-          height="100%"
-          width="100%"
+          height="90%"
+          width="80%"
           name="test"
         />
       </div>
@@ -144,19 +143,18 @@ export default {
 .FileView {
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   color: rgb(113, 133, 177);
+  background-color: aliceblue;
 
-  text-align: center;
   /* margin: 0 auto;
   overflow-y: auto;
-  position: relative;
   max-height: 40%;
     width: 60%;
   */
 }
 
 .pdfview {
-  height: 600px;
+  height: 700px;
   width: 100%;
-  padding: 30px;
+  padding: 10px;
 }
 </style>

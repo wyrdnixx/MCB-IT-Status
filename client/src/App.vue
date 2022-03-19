@@ -58,8 +58,14 @@ export default {
   min-height: calc(100vh - 10px);
   background-image: url("assets/bg-mcb.jpeg");
   background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 h1 {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  color: rgb(63, 153, 212);
+}
+h2 {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   color: rgb(63, 153, 212);
 }

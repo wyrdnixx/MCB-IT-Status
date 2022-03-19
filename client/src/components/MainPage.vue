@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>{{ msg }}</h1>
+    <h2>{{ msg }}</h2>
     <button class="btn btn-info" v-on:click="authentication()">
       {{ IsLoggedIn ? "Logout" : "Login" }}
     </button>
