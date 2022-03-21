@@ -41,7 +41,24 @@ const download = (req, res) => {
     }
   });
 };
+
+const fileupload = (req, res) => {
+  const directoryPath = __dirname + "/../resources/files/";
+  console.log("Requested fileupload: " + req.files.file.name)
+
+  // (B3-1) UPLOADED FILE & DESTINATION
+  let upfile = req.files.file,
+    updest = directoryPath + upfile.name;
+
+  // (B3-2) MOVE UPLOADED FILE
+  upfile.mv(updest, (err) => {
+    if (err) { return res.status(500).send(err); }
+    res.send("File uploaded!");
+  });
+}
+
 module.exports = {
   getListFiles,
   download,
+  fileupload
 };

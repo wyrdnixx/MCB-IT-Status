@@ -13,22 +13,11 @@
           name="test"
         />
       </div>
-      <div id="upload">
-        <input
-          type="file"
-          id="file"
-          ref="file"
-          accept=".pdf"
-          v-on:change="handleFileUpload()"
-        />
-        <button
-          v-if="IsLoggedIn"
-          class="btn btn-warning"
-          v-on:click="submitFile()"
-        >
-          Hochladen
-        </button>
+      <div id="upload" v-if="IsLoggedIn">
+        <input type="file" @change="uploadFile" ref="file" accept=".pdf" />
+        <button @click="submitFile">Upload!</button>
       </div>
+
       <div
         id="files"
         class="FileView rounded-bottom rounded-top rounded-left rounded-right"
@@ -71,6 +60,7 @@ export default {
       ],
       curFile: "",
       basepath: "",
+      selectedUploadFile: undefined,
     };
   },
 
@@ -102,26 +92,18 @@ export default {
           this.$toast.error(error);
         });
     },
-    submitFile() {
-      /*
-                Initialize the form data
-            */
-      let formData = new FormData();
-
-      /*
-                Add the form data we need to submit
-            */
-      formData.append("file", this.file);
-
-      /*
-          Make the request to the POST /single-file URL
-        */
+    OLDsubmitFile() {
       axios
-        .post("/single-file", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
+        .post(
+          this.$parent.APIURL + "/fileupload",
+          this.currentUploadFile.files[0],
+          {
+            headers: {
+              //"Content-Type": "multipart/form-data",
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        )
         .then(function () {
           console.log("SUCCESS!!");
         })
@@ -129,12 +111,25 @@ export default {
           console.log("FAILURE!!");
         });
     },
-
-    /*
-        Handles a change on the file upload
-      */
-    handleFileUpload() {
-      this.file = this.$refs.file.files[0];
+    uploadFile() {
+      this.selectedUploadFile = this.$refs.file.files[0];
+      console.warn("File: " + this.selectedUploadFile);
+    },
+    submitFile() {
+      const formData = new FormData();
+      formData.append("file", this.selectedUploadFile);
+      const headers = { "Content-Type": "multipart/form-data" };
+      axios
+        .post(this.$parent.APIURL + "/fileupload", formData, { headers })
+        .then((res) => {
+          //res.data.files; // binary representation of the file
+          res.status; // HTTP status
+          this.GetFiles();
+          this.$toast.success("Upload OK");
+        })
+        .catch(function () {
+          console.log("FAILURE!!");
+        });
     },
   },
 };

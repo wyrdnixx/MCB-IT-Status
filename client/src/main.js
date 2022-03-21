@@ -8,18 +8,19 @@ import VueCookies from 'vue-cookies'
 
 
 Vue.use(VueCookies);
-Vue.use(BootstrapVue)
+Vue.use(BootstrapVue);
+
 Vue.config.productionTip = false
 
 import Toast from "vue-toastification";
 // Import the CSS or use your own!
 import "vue-toastification/dist/index.css";
 const options = {
-    // You can set your default options here
-    timeout: 2000,
-    closeOnClick: false
+  // You can set your default options here
+  timeout: 2000,
+  closeOnClick: false
 };
-Vue.use(Toast,options)
+Vue.use(Toast, options)
 
 
 new Vue({
