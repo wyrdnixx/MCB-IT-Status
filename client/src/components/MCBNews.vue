@@ -7,7 +7,7 @@
       <iframe src="http://localhost:3080/files/test%20Kopie%204.pdf" height='100%' width='100%' name='test'/>      
       -->
         <iframe
-          :src="basepath + '/../files/' + curFile"
+          :src="basepath + '/../files/' + curFile + '#zoom=125%'"
           height="90%"
           width="80%"
           name="test"
@@ -139,9 +139,10 @@ export default {
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   color: rgb(113, 133, 177);
   background-color: aliceblue;
-
-  /* margin: 0 auto;
-  overflow-y: auto;
+  /*
+  margin: 0 auto;
+   overflow-y: auto;
+  
   max-height: 40%;
     width: 60%;
   */
@@ -149,6 +150,7 @@ export default {
 
 .pdfview {
   height: 700px;
+
   width: 100%;
   padding: 10px;
 }
