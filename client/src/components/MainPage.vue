@@ -58,10 +58,7 @@
               </select>
             </td>
             <td>
-              <button
-                v-on:click="AddItem()"
-                class="btn btn-outline-success btn-sm"
-              >
+              <button v-on:click="AddItem()" class="btn btn-success btn-sm">
                 Add
               </button>
             </td>
@@ -90,14 +87,14 @@
               <button
                 v-on:click="SetUpdateItem(item)"
                 v-if="toEdit != item.Name"
-                class="btn btn-outline-primary btn-sm"
+                class="btn btn-primary btn-sm"
               >
                 edit
               </button>
               <button
                 v-on:click="DeleteItem(item)"
                 v-if="toEdit != item.Name"
-                class="btn btn-outline-danger btn-sm"
+                class="btn btn-danger btn-sm"
               >
                 x
               </button>
@@ -316,7 +313,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .items {
-  background-color: rgb(31, 31, 31);
+  background-color: rgb(220, 235, 253);
 }
 table {
   background-color: rgb(52, 147, 202);
