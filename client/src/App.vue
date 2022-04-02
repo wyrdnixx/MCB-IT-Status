@@ -7,7 +7,7 @@
 
 <script>
 import MainPage from "./components/MainPage.vue";
-import MCBNews from "./components/MCBNews.vue";
+import MCBNews from "./components/MCBNews-neu.vue";
 
 export default {
   name: "App",
