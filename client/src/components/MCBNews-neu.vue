@@ -22,9 +22,9 @@
     </div>
     <div id="pdfview" class="pdfview" v-if="pdfvisible">
       <div class="box stack-top" @click="closepdfview">
-        <button class="btnclose btn btn-danger">[X]</button>
+        <button class="btnclose btn btn-danger">Schließen [X]</button>
         <iframe
-          :src="basepath + '/../files/' + curFile + '#zoom=125%'"
+          :src="basepath + '/../files/' + curFile + '#zoom=140%'"
           style="width: 100%; height: 100%"
         />
       </div>
@@ -134,38 +134,39 @@ export default {
 </script>
 <style scoped>
 .FileView {
-  font-family: Helvetica, Times;
-  color: rgb(113, 133, 177);
-  /*background-color: aliceblue;*/
-
+  font-family: Arial, Times;
+  font-size: 125%;
+  color: rgb(30, 30, 30);
+  background-color: rgb(234, 252, 255);
+  opacity: 0.8;
   margin: 0 auto;
   overflow-y: auto;
-
+  border-bottom-right-radius: 100%;
+  border-bottom-left-radius: 100%;
   max-height: 40%;
-  width: 60%;
+  width: 30%;
 }
 
 .btnclose {
   position: fixed;
-  top: 8px;
-  right: 16px;
+  top: 5%;
+  right: 25%;
   font-size: 12px;
 }
 
 .pdfview {
   background-color: aliceblue;
-
   width: 70%;
   height: 100%;
   position: relative, center;
-  margin: 20px;
+  /*margin: 20px;*/
 }
 .box {
-  width: 95%;
+  width: 75%;
   height: 90%;
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 5%;
+  left: 10%;
   opacity: 0.95; /* for demo purpose  */
 }
 .stack-top {

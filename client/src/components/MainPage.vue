@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>{{ msg }}</h2>
-    <button class="btn btn-info" v-on:click="authentication()">
+    <button class="btn btn-info btn-right" v-on:click="authentication()">
       {{ IsLoggedIn ? "Logout" : "Login" }}
     </button>
     <div id="loginForm" v-if="showLogin && !IsLoggedIn">
@@ -337,5 +337,10 @@ ul {
 li {
   display: inline-block;
   margin: 0 10px;
+}
+.btn-right {
+  position: absolute;
+  left: 95%;
+  top: 2%;
 }
 </style>
