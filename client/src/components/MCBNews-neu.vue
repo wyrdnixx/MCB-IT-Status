@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="title">
-      <h1>MCB IT-News</h1>
+      <h1><b> MCB IT-News</b></h1>
     </div>
     <div id="upload" v-if="IsLoggedIn">
       <input type="file" @change="uploadFile" ref="file" accept=".pdf" />
@@ -12,13 +12,15 @@
       class="FileView rounded-bottom rounded-top rounded-left rounded-right"
     >
       <a
-        v-for="f in this.files"
+        v-for="(f, index) in this.files"
         :key="f.name"
         v-on:click="viewpdffile(f.name)"
         class="FileView"
       >
-        {{ f.name }} <br
-      /></a>
+        <b v-if="index === 0"> {{ f.name }} </b>
+        <span v-else> {{ f.name }}</span>
+        <br />
+      </a>
     </div>
     <div id="pdfview" class="pdfview" v-if="pdfvisible">
       <div class="box stack-top" @click="closepdfview">
@@ -149,8 +151,8 @@ export default {
 
 .btnclose {
   position: fixed;
-  top: 5%;
-  right: 25%;
+  top: 6%;
+  right: 15%;
   font-size: 12px;
 }
 
@@ -163,9 +165,9 @@ export default {
 }
 .box {
   width: 75%;
-  height: 90%;
+  height: 80%;
   position: absolute;
-  top: 5%;
+  top: 7%;
   left: 10%;
   opacity: 0.95; /* for demo purpose  */
 }

@@ -15,7 +15,9 @@ const getListFiles = (req, res) => {
       });
     }
     let fileInfos = [];
-    files.forEach((file) => {
+    files.sort(function (a, b) {
+      return a > b ? -1 : 1;
+    }).forEach((file) => {
       if (path.extname(file) == ".pdf") {
         fileInfos.push({
           name: file,
