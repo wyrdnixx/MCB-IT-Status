@@ -1,18 +1,21 @@
 <template>
   <div id="app">
     <MCBNews />
+    <MOTD />
     <MainPage msg="Status MCB-IT Systeme" />
   </div>
 </template>
 
 <script>
 import MainPage from "./components/MainPage.vue";
+import MOTD from "./components/MOTD.vue";
 import MCBNews from "./components/MCBNews-neu.vue";
 
 export default {
   name: "App",
   components: {
     MainPage,
+    MOTD,
     MCBNews,
   },
   data() {

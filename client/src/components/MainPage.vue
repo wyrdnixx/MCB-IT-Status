@@ -23,10 +23,9 @@
     <div v-if="IsLoggedIn">Angemeldet: {{ headers.authusr }}</div>
     <p></p>
     <div id="items" class="items">
-      <!-- <button class="btn btn-warning" v-on:click="GetItems()">aktualisieren</button> -->
-      <button class="uk-button uk-button-primary" v-on:click="GetItems()">
+      <!-- <button class="uk-button uk-button-primary" v-on:click="GetItems()">
         aktualisieren
-      </button>
+      </button> -->
       <p></p>
       <input type="text" placeholder="suche" v-model="searchtext" />
       <button
@@ -313,7 +312,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .items {
-  background-color: rgb(220, 235, 253);
+  /* background-color: rgb(220, 235, 253); */
 }
 table {
   background-color: rgb(52, 147, 202);

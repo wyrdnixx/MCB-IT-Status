@@ -53,7 +53,7 @@ export default {
       curFile: "",
       basepath: "",
       selectedUploadFile: undefined,
-      pdfvisible: true,
+      pdfvisible: false,
     };
   },
 
