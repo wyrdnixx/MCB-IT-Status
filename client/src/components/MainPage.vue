@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h2>{{ msg }}</h2>
+    <h1><b>Status MCB-IT Systeme</b></h1>
+
     <button class="btn btn-info btn-right" v-on:click="authentication()">
       {{ IsLoggedIn ? "Logout" : "Login" }}
     </button>

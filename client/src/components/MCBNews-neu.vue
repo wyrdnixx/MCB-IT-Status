@@ -137,16 +137,17 @@ export default {
 <style scoped>
 .FileView {
   font-family: Arial, Times;
-  font-size: 125%;
+  font-size: 110%;
   color: rgb(30, 30, 30);
-  background-color: rgb(234, 252, 255);
+  background-color: rgb(208, 237, 249);
   opacity: 0.8;
   margin: 0 auto;
   overflow-y: auto;
   border-bottom-right-radius: 100%;
   border-bottom-left-radius: 100%;
   max-height: 40%;
-  width: 30%;
+  width: 40%;
+  border-radius: 20px;
 }
 
 .btnclose {

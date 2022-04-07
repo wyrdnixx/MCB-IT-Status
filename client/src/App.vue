@@ -2,7 +2,7 @@
   <div id="app">
     <MCBNews />
     <MOTD />
-    <MainPage msg="Status MCB-IT Systeme" />
+    <MainPage />
   </div>
 </template>
 
