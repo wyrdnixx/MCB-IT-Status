@@ -1,24 +1,15 @@
 # webapp
 
 ## Project setup
+clone with git
 ```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn serve
+git clone https://github.com/wyrdnixx/MCB-IT-Status
 ```
 
-### Compiles and minifies for production
+### run with docker-compose
 ```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
+docker-compuse up -d
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+entrypoint will update files from github
+to upadte simply restart or redeploy with portainer
