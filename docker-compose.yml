@@ -7,6 +7,6 @@ services:
       - "3080:3080"
     volumes:
       - .:/opt/
-    entrypoint: /opt/entrypoint.sh
+    entrypoint: [ "sh", "/opt/entrypoint.sh" ]
 volumes:
   MCB: {}
