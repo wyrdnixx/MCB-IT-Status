@@ -7,8 +7,9 @@
         <tr>
           <td>
             <small>05.04.2022 </small><br />
-            Dies ist ein Beispieltext. Hier kann z.B. ein Gedicht stehen. Oder
-            was anderes. Vielleicht auch eine Abhandlung zu dem Fluxkompensator
+            Dies ist xxxxxxx ein Beispieltext. Hier kann z.B. ein Gedicht
+            stehen. Oder was anderes. Vielleicht auch eine Abhandlung zu dem
+            Fluxkompensator
           </td>
         </tr>
         <tr>
