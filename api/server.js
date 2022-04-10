@@ -163,6 +163,18 @@ app.post('/api/addItem', async function (req, res) {
 
 })
 
+app.post('/api/delMotd', async function (req, res) {
+   const item = req.body;
+   var authresult = await checkauth(req)
+   if (!authresult) {
+
+      console.log("Authentication not ok - no action")
+      res.json({ Result: "error", text: "user not authenticated" })
+
+   } else {
+      /// ToDo: delete motd 
+   }
+});
 
 app.post('/api/updateItem', async function (req, res) {
    console.log("got update request: " + JSON.stringify(req.body))

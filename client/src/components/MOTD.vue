@@ -9,6 +9,7 @@
             <small>{{ item.datum }} </small><br />
             {{ item.text }}
           </td>
+          <td v-if="IsLoggedIn" v-on:click="delMotd(item.id)">x</td>
         </tr>
       </table>
     </div>
@@ -36,6 +37,11 @@ export default {
     this.basepath = this.$parent.APIURL;
     this.GetMotd();
   },
+  computed: {
+    IsLoggedIn() {
+      return this.$parent.loggedin;
+    },
+  },
   methods: {
     async GetMotd() {
       console.log("GetMotd: " + this.$parent.APIURL + "/motd");
@@ -50,6 +56,30 @@ export default {
         .catch((error) => {
           console.log("error: " + error);
           this.$toast.error(error);
+        });
+    },
+    async delMotd(_id) {
+      console.log("delete motd id: " + _id);
+      await axios
+        .post(this.$parent.APIURL + "/delMotd", _id, {
+          /// ToDo:  Auth-header noch nicht richtig implementiert
+          headers: this.headers,
+        })
+        .then((res) => {
+          console.log("Result: " + JSON.stringify(res.data));
+
+          if (res.data.Result === "motd deleted ...") {
+            this.$toast.success("aktualisiert");
+
+            this.toEdit = null;
+            this.GetItems();
+          } else {
+            this.$toast.error("Err: " + res.data.text);
+          }
+        })
+        //.then(this.GetItems())
+        .catch((error) => {
+          this.$toast.error("Err:" + error);
         });
     },
   },
