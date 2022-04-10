@@ -63,15 +63,34 @@ db.serialize(() => {
       }
    });
    db.exec(`create table if not exists Users (
-        Username TEXT primary key,
-        Password TEXT not Null,
-        Token TEXT
-        )`, (err) => {
+      Username TEXT primary key,
+      Password TEXT not Null,
+      Token TEXT
+      )`, (err) => {
       if (err) {
          console.warn(err.message)
       }
    });
-
+   db.exec(`create table if not exists Motd (
+   id integer primary key autoincrement,
+   datum TEXT not Null,
+   text TEXT not null
+   )`, (err) => {
+      if (err) {
+         console.warn(err.message)
+      }
+   });
+   // insert example
+   db.exec(`insert into Motd 
+   ('datum','text')
+   values (
+      '01.01.2022',
+      'test-text :  hier kommt alles rein'
+      )`, (err) => {
+      if (err) {
+         console.warn(err.message)
+      }
+   });
    db.exec(sqlDefaultAdmin, (err) => {
       if (err) {
          console.warn(err.message)
@@ -214,6 +233,19 @@ app.get('/api/getItems', (req, res) => {
    //res.json(db.GetItems())
 });
 
+app.get('/api/motd', (req, res) => {
+
+   console.log('getMotd...');
+   db.all(`select * from Motd order by datum COLLATE NOCASE desc ,text COLLATE NOCASE asc`, (err, rows) => {
+      //console.log(rows)
+      if (err) {
+         console.error(err.message);
+      }
+      res.json(rows)
+   });
+   //res.json(items) 
+   //res.json(db.GetItems())
+});
 
 function updateUserToken(res, credentials) {
    console.log("updating usertoken")
