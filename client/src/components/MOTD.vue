@@ -2,6 +2,11 @@
   <div id="maindiv">
     <h1><b>Aktuelle Informationen</b></h1>
 
+    <div id="addMotd" v-if="IsLoggedIn">
+      <input v-model="NewMotd.datum" alt="datum" type="date" />
+      <input v-model="NewMotd.text" alt="Text" type=" text" />
+      <button v-on:click="AddMotd()">eintragen</button>
+    </div>
     <div id="MOTD" class="motd">
       <table class="motdtable">
         <tr v-for="item in this.motd" :key="item.id">
@@ -31,6 +36,10 @@ export default {
           text: "",
         },
       ],
+      NewMotd: {
+        datum: "",
+        text: "",
+      },
     };
   },
   created() {
@@ -58,10 +67,32 @@ export default {
           this.$toast.error(error);
         });
     },
+    async AddMotd() {
+      //this.$toast.success(this.NewMotd.datum);
+      await axios
+        .post(this.$parent.APIURL + "/AddMotd", this.NewMotd, {
+          /// ToDo - Muss in main verscoben werden : headers: this.headers,
+        })
+        .then((res) => {
+          console.log("res: " + JSON.stringify(res.data));
+          if (res.data.Result === "Motd updated ...") {
+            this.$toast.success("Motd aktualisiert.");
+            this.GetMotd();
+          } else {
+            //this.$toast.error(res.data.text);
+          }
+        })
+        .catch((error) => {
+          this.$toast.error("Err:" + error);
+        });
+    },
     async delMotd(_id) {
       console.log("delete motd id: " + _id);
+      var toDel = {
+        id: _id,
+      };
       await axios
-        .post(this.$parent.APIURL + "/delMotd", _id, {
+        .post(this.$parent.APIURL + "/delMotd", toDel, {
           /// ToDo:  Auth-header noch nicht richtig implementiert
           headers: this.headers,
         })
@@ -72,7 +103,7 @@ export default {
             this.$toast.success("aktualisiert");
 
             this.toEdit = null;
-            this.GetItems();
+            this.GetMotd();
           } else {
             this.$toast.error("Err: " + res.data.text);
           }

@@ -166,15 +166,56 @@ app.post('/api/addItem', async function (req, res) {
 app.post('/api/delMotd', async function (req, res) {
    const item = req.body;
    var authresult = await checkauth(req)
-   if (!authresult) {
+   ///todo   if (!authresult) {
+   //     console.log("Authentication not ok - no action")
+   //     res.json({ Result: "error", text: "user not authenticated" })
 
-      console.log("Authentication not ok - no action")
-      res.json({ Result: "error", text: "user not authenticated" })
+   //   } else {
 
-   } else {
-      /// ToDo: delete motd 
-   }
+   console.log("delete Motd-ID: " + item.id)
+
+   var sql = `delete from  motd where  id =  ?`
+   db.run(sql, item.id, (err) => {
+      if (err) {
+         console.log(err.message)
+         res.json({ Result: err.message })
+      } else {
+         console.log("deleted Motd-ID: " + sql)
+         res.json({ Result: "motd deleted ..." })
+
+      }
+   })
+
+   //   }
 });
+
+app.post('/api/AddMotd', async function (req, res) {
+   const newMotd = req.body;
+   var authresult = await checkauth(req)
+   ///todo check auth
+   /// todo if (!authresult) {
+   // if (!authresult) {
+   //   console.log("Authentication not ok - no action")
+   //   res.json({ Result: "error", text: "user not authenticated" })
+   //} else {
+
+   console.log("new Motd: " + JSON.stringify(req.body))
+
+   var sql = `insert into motd ('datum','text') values ( ? ,?)`
+   db.run(sql, req.body.datum, req.body.text, (err) => {
+      if (err) {
+         console.log(err.message)
+         res.json({ Result: err.message })
+      } else {
+         //console.log("updated: "+ sql)
+         res.json({ Result: "Motd updated ..." })
+
+      }
+   })
+
+   //}
+});
+
 
 app.post('/api/updateItem', async function (req, res) {
    console.log("got update request: " + JSON.stringify(req.body))
