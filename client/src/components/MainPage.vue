@@ -54,6 +54,7 @@
             <td>
               <select v-model="NewItem.Status">
                 <option>In-Betrieb</option>
+                <option>In-Bearbeitung</option>
                 <option>Außer-Funktion</option>
               </select>
             </td>
@@ -79,6 +80,7 @@
             <td v-if="toEdit === item.Name">
               <select v-model="UpdateItem.Status">
                 <option>In-Betrieb</option>
+                <option>In-Bearbeitung</option>
                 <option>Außer-Funktion</option>
               </select>
             </td>
