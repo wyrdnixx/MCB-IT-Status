@@ -81,16 +81,17 @@ db.serialize(() => {
       }
    });
    // insert example
-   db.exec(`insert into Motd 
-   ('datum','text')
-   values (
-      '01.01.2022',
-      'test-text :  hier kommt alles rein'
-      )`, (err) => {
-      if (err) {
-         console.warn(err.message)
-      }
-   });
+   /*  db.exec(`insert into Motd 
+    ('datum','text')
+    values (
+       '01.01.2022',
+       'test-text :  hier kommt alles rein'
+       )`, (err) => {
+       if (err) {
+          console.warn(err.message)
+       }
+    }); */
+
    db.exec(sqlDefaultAdmin, (err) => {
       if (err) {
          console.warn(err.message)
