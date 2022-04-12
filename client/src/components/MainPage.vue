@@ -55,7 +55,7 @@
               <select v-model="NewItem.Status">
                 <option>In-Betrieb</option>
                 <option>In-Bearbeitung</option>
-                <option>Außer-Funktion</option>
+                <!--<option>Außer-Funktion</option> -->
               </select>
             </td>
             <td>
@@ -81,7 +81,7 @@
               <select v-model="UpdateItem.Status">
                 <option>In-Betrieb</option>
                 <option>In-Bearbeitung</option>
-                <option>Außer-Funktion</option>
+                <!-- <option>Außer-Funktion</option> -->
               </select>
             </td>
             <td v-else>{{ item.Status }}</td>

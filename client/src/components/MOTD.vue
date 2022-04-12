@@ -126,7 +126,7 @@ export default {
   bottom: 0;
   left: 0;
   width: 90%;
-  height: 450px;
+  height: 350px;
   background-color: rgb(208, 237, 249);
   opacity: 0.8;
 
