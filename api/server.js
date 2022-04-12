@@ -18,7 +18,7 @@ const { JavascriptModulesPlugin } = require('webpack');
 bodyParser = require("body-parser");
 /* var db = require("./database")
  */const sqlite3 = require('sqlite3').verbose();
-let dbFile = './MCB-DB.db';
+let dbFile = '../data/db/MCB-DB.db';
 
 // Body-parser middleware
 app.use(bodyParser.urlencoded({ extended: false }))

@@ -3,7 +3,7 @@ const path = require("path");
 const baseUrl = "/files/";
 const getListFiles = (req, res) => {
   //const directoryPath = __basedir + "/resources/files/";
-  const directoryPath = __dirname + "/../resources/files/";
+  const directoryPath = __dirname + "/../../data/files/";
 
 
 
@@ -33,7 +33,7 @@ const getListFiles = (req, res) => {
 //inactive
 const download = (req, res) => {
   const fileName = req.params.name;
-  const directoryPath = __dirname + "/../resources/files/";
+  const directoryPath = __dirname + "/../../data/files/";
   res.download(directoryPath + fileName, fileName, (err) => {
     if (err) {
       console.log("error downloading file: " + err)
@@ -45,7 +45,7 @@ const download = (req, res) => {
 };
 
 const fileupload = (req, res) => {
-  const directoryPath = __dirname + "/../resources/files/";
+  const directoryPath = __dirname + "/../../data/files/";
   console.log("Requested fileupload: " + req.files.file.name)
 
   // (B3-1) UPLOADED FILE & DESTINATION
